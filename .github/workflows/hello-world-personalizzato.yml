@@ -1,0 +1,41 @@
+name: Hello World Personalizzato
+run-name: ${{ github.actor }} sta testando GitHub Actions 🚀
+
+on:
+  push:
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Informazioni utente
+        run: echo "Workflow avviato da ${{ github.actor }}"
+
+      - name: Informazioni repository
+        run: |
+          echo "Repository completo: ${{ github.repository }}"
+          echo "URL del repository: ${{ github.repositoryUrl }}"
+
+      - name: Informazioni commit
+        run: |
+          echo "SHA del commit: ${{ github.sha }}"
+          echo "Messaggio del commit: ${{ github.event.head_commit.message }}"
+          echo "Autore del commit: ${{ github.event.head_commit.author.name }}"
+
+      - name: Informazioni esecuzione
+        run: |
+          echo "Nome del workflow: ${{ github.workflow }}"
+          echo "ID esecuzione: ${{ github.run_id }}"
+          echo "Data e ora esecuzione:"
+          date
+
+      - name: Lista file modificati
+        run: |
+          echo "File modificati nell'ultimo commit:"
+          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+
+      - name: Riepilogo finale
+        run: echo "Workflow ${{ github.workflow }} completato con successo!"
